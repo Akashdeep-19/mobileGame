@@ -14,6 +14,7 @@ function touchStarted(){
     r += 10;
   }
   else {
-    r -= 60;
+    r -= 80;
   }
+  return false;
 }
