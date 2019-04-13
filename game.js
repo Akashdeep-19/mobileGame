@@ -13,7 +13,7 @@ var balls = [];
 
 function setup(){
   const canvasElt = createCanvas(400, 600).elt;
-  //canvasElt.style.width = '100%', canvasElt.style.height = '110%';
+  canvasElt.style.width = '100%', canvasElt.style.height = '110%';
   rot = createVector(0,1);
 }
 
