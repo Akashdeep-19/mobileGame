@@ -1,7 +1,7 @@
 var rot;
 var r = 30;
 var l = 40;
-speed = 0.04;
+speed = 2.1;
 delay = 2.8;
 time = 0;
 score = 0;
@@ -13,7 +13,7 @@ var balls = [];
 
 function setup(){
   const canvasElt = createCanvas(400, 600).elt;
-  canvasElt.style.width = '100%', canvasElt.style.height = '100%';
+  //canvasElt.style.width = '100%', canvasElt.style.height = '110%';
   rot = createVector(0,1);
 }
 
@@ -34,7 +34,7 @@ function draw (){
   fill(100,200,100);
   ellipse(width/2,height/2,2*r);
 
-  rot.rotate(speed);
+  rot.rotate(speed*deltaTime);
   push();
   translate(width/2,height/2);
   rotate(rot.heading());
@@ -97,12 +97,13 @@ function spawn (){
 function Bullet (x,y,rot){
     this.pos = createVector(x,y);
     this.vel = createVector();
-    this.speed = 10;
+    this.speed = 700;
     this.vel = rot.copy();
-    this.vel.setMag(this.speed);
+
     this.hit = false;
 
     this.update = function (){
+        this.vel.setMag(this.speed*deltaTime);
         this.pos.add(this.vel);
     }
 
@@ -134,7 +135,7 @@ function Ball (){
     var y2 = random(height);
     this.speed = 70;
     this.hit = false;
-    this.r = 20;
+    this.r = 25;
     this.pos = random()<0.5?createVector(x1,y2):createVector(x2,y1);
     this.vel = p5.Vector.sub(createVector(width/2,height/2),this.pos);
     this.vel.setMag(this.speed);
@@ -153,8 +154,10 @@ function Ball (){
 
     this.restrict = function(){
       var d = dist(this.pos.x,this.pos.y,width/2,height/2);
-      if(d < r + this.r -4){
+      if(d < r + this.r/2){
         this.hit = true;
+        fill(255,0,0);
+        ellipse(width/2,height/2,2*r);
         score = 0;
         ammo = 5;
       }
