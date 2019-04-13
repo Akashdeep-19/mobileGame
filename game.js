@@ -1,19 +1,36 @@
 var rot;
-var r = 60;
-var l = 100;
+var r = 30;
+var l = 40;
 speed = 0.04;
-delay = 200;
+delay = 2.8;
 time = 0;
+score = 0;
+highScore = 0;
+deltaTime = 0;
+ammo = 5;
 var bullets = [];
 var balls = [];
 
 function setup(){
-  createCanvas(windowWidth,windowHeight);
+  const canvasElt = createCanvas(400, 600).elt;
+  canvasElt.style.width = '100%', canvasElt.style.height = '100%';
   rot = createVector(0,1);
 }
 
 function draw (){
+  if(frameCount > 1)
+      deltaTime = 1/frameRate();
+  else
+      deltaTime = 0;
   background(50);
+  noStroke();
+  textSize(60);
+  textAlign(CENTER);
+  fill(255,100);
+  text(score,2*width/6,60);
+  fill(255);
+  text(highScore,4*width/6,60);
+
   fill(100,200,100);
   ellipse(width/2,height/2,2*r);
 
@@ -36,11 +53,13 @@ function draw (){
   for(ball of balls){
       ball.show();
       ball.update();
-    //  ball.restrict();
+      ball.restrict();
   }
 
   spawn();
-
+  if(score > highScore){
+    highScore = score;
+  }
   for(var i = balls.length-1;i >= 0;i--){
       if(balls[i].hit)
           balls.splice(i,1);
@@ -54,20 +73,24 @@ function draw (){
 function touchStarted(){
   var dx = cos(rot.heading())*l;
   var dy = sin(rot.heading())*l;
-  bullets.push(new Bullet(width/2+dx,height/2+dy,rot))
+  if(ammo > 0){
+    bullets.push(new Bullet(width/2+dx,height/2+dy,rot));
+    ammo--;
+  }
   return false;
 }
 
-// function timeCount(){
-//     timer--;
-// }
-// setInterval(timeCount,1000);
+function timeCount(){
+    ammo+=3;
+}
+setInterval(timeCount,6000);
 
 
 function spawn (){
-    time++;
-    if(time % delay == 0){
+    time += deltaTime;
+    if(time > delay){
         balls.push(new Ball());
+        time = 0;
     }
 }
 
@@ -94,7 +117,7 @@ function Bullet (x,y,rot){
         if(d < ball.r){
             this.hit = true;
             ball.hit = true;
-          //  p.score++;
+            score++;
         }
     }
     this.restrict = function(){
@@ -109,22 +132,32 @@ function Ball (){
     var x1 = random()<0.5?5:width-5;
     var x2 = random(width);
     var y2 = random(height);
-    this.speed = 2;
+    this.speed = 70;
     this.hit = false;
-    this.r = 50
+    this.r = 20;
     this.pos = random()<0.5?createVector(x1,y2):createVector(x2,y1);
     this.vel = p5.Vector.sub(createVector(width/2,height/2),this.pos);
     this.vel.setMag(this.speed);
 
     this.update = function(){
+        this.vel.setMag(this.speed*deltaTime);
         this.pos.add(this.vel);
     }
 
     this.show = function(){
         fill(255,255,0);
-        stroke(0);
+        noStroke();
         strokeWeight(2);
         ellipse(this.pos.x,this.pos.y,this.r*2);
+    }
+
+    this.restrict = function(){
+      var d = dist(this.pos.x,this.pos.y,width/2,height/2);
+      if(d < r + this.r -4){
+        this.hit = true;
+        score = 0;
+        ammo = 5;
+      }
     }
 
 }
