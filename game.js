@@ -12,6 +12,8 @@ var bullets = [];
 var balls = [];
 
 function setup(){
+  let fs = fullscreen();
+  fullscreen(!fs);
   const canvasElt = createCanvas(400, 600).elt;
   canvasElt.style.width = '100%', canvasElt.style.height = '110%';
   rot = createVector(0,1);
