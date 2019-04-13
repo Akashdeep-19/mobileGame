@@ -12,8 +12,8 @@ var bullets = [];
 var balls = [];
 
 function setup(){
-  let fs = fullscreen();
-  fullscreen(true);
+  
+
   const canvasElt = createCanvas(400, 600).elt;
   canvasElt.style.width = '100%', canvasElt.style.height = '110%';
   rot = createVector(0,1);
@@ -73,6 +73,9 @@ function draw (){
 }
 
 function touchStarted(){
+  let fs = fullscreen();
+  if(!fs)
+  fullscreen(true);
   var dx = cos(rot.heading())*l;
   var dy = sin(rot.heading())*l;
   if(ammo > 0){
