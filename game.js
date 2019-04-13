@@ -14,7 +14,7 @@ var balls = [];
 function setup(){
   
 
-  const canvasElt = createCanvas(400, 700).elt;
+  const canvasElt = createCanvas(400, 650).elt;
   canvasElt.style.width = '100%', canvasElt.style.height = '100%';
   rot = createVector(0,1);
 }
@@ -33,7 +33,7 @@ function draw (){
   fill(255);
   text(highScore,4*width/6,60);
 
-  fill(100,200,100);
+  fill(50,200,100);
   ellipse(width/2,height/2,2*r);
 
   rot.rotate(speed*deltaTime);
