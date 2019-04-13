@@ -14,7 +14,7 @@ var balls = [];
 function setup(){
   
 
-  const canvasElt = createCanvas(400, 800).elt;
+  const canvasElt = createCanvas(400, 700).elt;
   canvasElt.style.width = '100%', canvasElt.style.height = '100%';
   rot = createVector(0,1);
 }
