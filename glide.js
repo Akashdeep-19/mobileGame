@@ -1,6 +1,6 @@
 var player;
 var gravity = 8;
-var force = 20;
+var force = 25;
 var defDelay = 0.7;
 var defSpeed = 200;
 var speed = defSpeed;
