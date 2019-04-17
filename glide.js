@@ -19,7 +19,7 @@ function setup(){
 }
 
 function draw (){
-  background(52);
+  background(255);
   if(frameCount > 1)
       deltaTime = 1/frameRate();
   else
@@ -95,7 +95,7 @@ function Player(){
 
   this.show = function(){
     noStroke();
-    fill(255);
+    fill(30);
     ellipse(this.p.pos.x,this.p.pos.y,this.r*2);
   }
 
