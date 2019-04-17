@@ -39,9 +39,9 @@ function draw (){
   noStroke();
   textSize(60);
   textAlign(CENTER);
-  fill(255,100);
+  fill(25,100);
   text(score,2*width/6,60);
-  fill(255);
+  fill(25);
   text(highScore,4*width/6,60);
 
   if(score > highScore){
@@ -95,7 +95,7 @@ function Player(){
 
   this.show = function(){
     noStroke();
-    fill(30);
+    fill(60);
     ellipse(this.p.pos.x,this.p.pos.y,this.r*2);
   }
 
@@ -130,7 +130,7 @@ function Ball (){
       this.p.update();
     }
     this.show = function(){
-        fill(0,200,200);
+        fill(90,205,250);
         if(this.hit)
           fill(255,0,0);
         noStroke();
